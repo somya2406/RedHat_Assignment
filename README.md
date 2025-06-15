@@ -4,7 +4,7 @@ To run this project:
    - cd repository-folder
 
 2) Create Virtual Environment
-  - python -m venv venv
+  - python3 -m venv venv
 
 3) Activate Virtual Environment
   - source venv/bin/activate on MAC

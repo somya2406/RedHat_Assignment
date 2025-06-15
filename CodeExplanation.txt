@@ -1,0 +1,106 @@
+
+Code Explanation: 
+
+Author: Somya Gupta
+File: service.py
+
+Overview
+--------
+This script defines a Service class that processes and analyzes data from a CSV file. It includes:
+- Data validation and cleanup
+- Displaying selected rows
+- Filtering based on flexible conditions
+- Sorting data
+- Aggregation (sum, average, min, max)
+- Detecting special palindromes
+- Writing data back to new CSV files
+
+Key Features & Logic
+--------------------
+
+Initialization & Cleaning (__init__)
+- Validates the provided file path.
+- Loads CSV using pandas.read_csv.
+- Trims whitespace from string columns.
+- Replaces blank strings ('') with NaN.
+- Drops fully empty rows.
+- Converts columns to numeric if >70% values are numeric.
+- Reports missing or invalid values by column.
+
+Case-Insensitive Column Matching
+- All column names are matched case-insensitively.
+  E.g., 'price', 'Price', 'PRiCe' are all treated the same.
+
+Displaying Data
+---------------
+display_first_n_rows(n)
+- Shows first n rows or the whole dataset if n exceeds the row count.
+
+Filtering Data
+--------------
+filter_rows_based_on_condition(column, condition, path_for_file=None)
+- Flexible filter handling:
+  1. Substring match: "containsApple" → 'contains Apple'
+  2. Numeric comparison: "<  10", "!  = 20", "==10" — all accepted
+     Valid operators: <, >, <=, >=, ==, !=
+  3. Ignores NaN values in filter columns
+  4. Optionally writes results to CSV
+
+FilterOperation (Enum)
+- Defines valid string-based operations like "CONTAINS"
+
+Sorting
+-------
+sort_rows_by_column(column, path_for_file=None, ascending=True)
+- Sorts rows by any column (case-insensitive)
+- Optional ascending/descending order
+- Optionally writes sorted data to CSV
+
+Aggregation
+-----------
+aggregate_column_data(column, operation)
+- Works on numeric columns only
+- Supported operations: min, max, sum, average
+- Case-insensitive input for operations
+
+Palindrome Detection
+--------------------
+check_valid_palindromes()
+- Scans all cells for values that:
+  - Are palindromes
+  - Use only allowed characters: A, D, V, B, N
+
+Writing to CSV
+--------------
+write_in_csv_file(data, path)
+- Writes DataFrame to specified file
+- Informs whether file was created or overwritten
+
+Internal Helpers
+----------------
+| Method                    | Purpose                                |
+|---------------------------|----------------------------------------|
+| is_data_loaded()          | Checks if dataFrame is loaded          |
+| get_valid_column_name()   | Case-insensitive column matching       |
+| is_valid_palindrome(val)  | Checks for valid palindrome characters |
+
+Usage Summary
+-------------
+| Function                          | Description                          |
+|----------------------------------|--------------------------------------|
+| __init__                         | Load, clean, and validate CSV        |
+| display_first_n_rows(n)          | Show first n rows                    |
+| filter_rows_based_on_condition   | Flexible, case-insensitive filtering |
+| sort_rows_by_column              | Sort by column name                  |
+| aggregate_column_data            | min, max, sum, average               |
+| check_valid_palindromes()        | Detect custom palindromes            |
+| write_in_csv_file                | Save data to a CSV file              |
+
+User Experience Enhancements
+----------------------------
+- Case-Insensitive Inputs:
+  - Column names like price, Price, PRICE are treated the same
+- Flexible Filtering:
+  - "! =10" → "!= 10"
+  - "conainsApple" → "contains Apple"
+  - "<  10" → "< 10"
