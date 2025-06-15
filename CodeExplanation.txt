@@ -40,7 +40,11 @@ Filtering Data
 --------------
 filter_rows_based_on_condition(column, condition, path_for_file=None)
 - Flexible filter handling:
-  1. Substring match: "containsApple" → 'contains Apple'
+  1. Substring match: The condition contains<value> is supported 
+  in multiple formats such as contains Apple, contains Apple, or 
+  even containsApple (without space). All formats are valid and will 
+  match the given value in the column regardless of case—e.g., 
+  containsApple will match apple, APPLE, PineApple, etc.
   2. Numeric comparison: "<  10", "!  = 20", "==10" — all accepted
      Valid operators: <, >, <=, >=, ==, !=
   3. Ignores NaN values in filter columns
